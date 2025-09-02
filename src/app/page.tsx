@@ -1,103 +1,92 @@
-import Image from "next/image";
+import {
+  Heading,
+  Text,
+  Button,
+  Avatar,
+  RevealFx,
+  Column,
+  Badge,
+  Row,
+  Schema,
+  Meta,
+  Line,
+} from "@once-ui-system/core";
+import { home, about, person, baseURL, routes } from "@/resources";
+import { Projects } from "@/components/work/Projects";
+import { Posts } from "@/components/blog/Posts";
+
+export async function generateMetadata() {
+  return Meta.generate({
+    title: home.title,
+    description: home.description,
+    baseURL: baseURL,
+    path: home.path,
+    image: home.image,
+  });
+}
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <Column maxWidth="m" gap="xl" paddingY="12" horizontal="center">
+      <Schema
+        as="webPage"
+        baseURL={baseURL}
+        path={home.path}
+        title={home.title}
+        description={home.description}
+        image={`/api/og/generate?title=${encodeURIComponent(home.title)}`}
+        author={{
+          name: person.name,
+          url: `${baseURL}${about.path}`,
+          image: `${baseURL}${person.avatar}`,
+        }}
+      />
+      <Column fillWidth horizontal="center" gap="m">
+        <Column maxWidth="s" horizontal="center" align="center">
+          {home.featured.display && (
+            <RevealFx
+              fillWidth
+              horizontal="center"
+              paddingTop="16"
+              paddingBottom="32"
+              paddingLeft="12"
+            >
+              <Badge
+                background="brand-alpha-weak"
+                paddingX="12"
+                paddingY="4"
+                onBackground="neutral-strong"
+                textVariant="label-default-s"
+                arrow={false}
+                href={home.featured.href}
+              >
+                <Row paddingY="2">{home.featured.title}</Row>
+              </Badge>
+            </RevealFx>
+          )}
+          <RevealFx translateY="4" fillWidth horizontal="center" paddingBottom="16">
+            <Heading wrap="balance" variant="display-strong-l">
+              {home.headline}
+            </Heading>
+          </RevealFx>
+          <RevealFx translateY="8" delay={0.2} fillWidth horizontal="center" paddingBottom="32">
+            <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
+              {home.subline}
+            </Text>
+          </RevealFx>
+          <RevealFx paddingTop="12" delay={0.4} horizontal="center" paddingLeft="12">
+            <Avatar
+              src={person.avatar}
+              size="xl"
+              style={{ marginBottom: "1rem" }}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          </RevealFx>
+        </Column>
+      </Column>
+      <RevealFx translateY="16" delay={0.6}>
+        <Projects range={[1, 1]} />
+      </RevealFx>
+
+    </Column>
   );
 }
