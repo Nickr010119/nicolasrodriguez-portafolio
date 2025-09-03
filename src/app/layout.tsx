@@ -45,6 +45,7 @@ export default async function RootLayout({
       )}
     >
       <head>
+        <link rel="icon" href="/avatar.jpg" type="image/jpeg" />
         <script
           id="theme-init"
           dangerouslySetInnerHTML={{
