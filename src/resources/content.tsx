@@ -25,7 +25,8 @@ const person = {
   avatar: "/avatar.jpg",
   location: "America/Bogota",
   languages: ["Español", "Inglés"],
-  role: "Desarrollador de software"
+  role: "Desarrollador de software",
+  email: "nicolasrodriguezp@gmail.com"
 };
 
 const home: Home = {
